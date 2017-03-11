@@ -5,7 +5,7 @@ angular.module("myChats").controller("mainCtrl", function($scope, mainSrvc, $int
   //Dummy data to show what the chat messages should look like
   // to work with the frontend
   // TODO Remove once server is integrated;
-  $scope.chats = [{
+/*  $scope.chats = [{
     screenname:"Mr Wiggles",
     message:"I canz sit still"
   },{
@@ -15,12 +15,23 @@ angular.module("myChats").controller("mainCtrl", function($scope, mainSrvc, $int
     screenname:"Mr Author",
     message:"I canz write childrenz books"
   }]
+*/
+
+$scope.setScreenname = function(screenname) {
+  mainSrvc.setScreenname(screenname)
+}
 
   $scope.addChat = function(chatmessage){
+    mainSrvc.addChats(chatmessage).then(response => {
+      $scope.chats = response.data;
+    })
     // TODO Call service to add chats
   }
 
   function getChats(){
+    mainSrvc.getChats().then(response => {
+      $scope.chats = response.data;
+    })
     // TODO Tell service to get chats
   }
 

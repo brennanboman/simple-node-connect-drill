@@ -11,9 +11,18 @@ app.use(bodyParser.json());
 
 // TODO Initialize Session
 
-app.post("/api/screenname", function(req, res){
+  app.use(express.static('public'));
+
+  app.use(bodyParser.json());
   // TODO Save screenname to session
-})
+
+// TODO Initialize Session
+  app.use(session({ secret: 'a secret' }));
+
+  app.post("/api/screenname", function(req, res){
+     req.session.screenname = req.body.screenname;
+     res.send(req.session)
+    })
 
 app.get("/api/chats", chatCtrl.getChats);
 app.post("/api/chats", chatCtrl.postChats);
